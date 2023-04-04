@@ -17,7 +17,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: docker.io
 
-  IMAGE_NAME: daktela/robot-framework:latest
+  IMAGE_NAME: daktela/robot-framework
 
 jobs:
   # Run tests.
@@ -135,8 +135,9 @@ jobs:
           context: .  
           platforms: linux/amd64,linux/arm64
           cache-from: ${{ env.IMAGE_NAME }}
+          cache-to: type=registry,ref=${{env.IMAGE_NAME}}:buildcache,mode=max
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}, ${{ steps.meta.outputs.tags }}-${{github.run_number}}
+          tags: ${{env.IMAGE_NAME}}:latest, ${{ steps.meta.outputs.tags }}, ${{ steps.meta.outputs.tags }}-${{github.run_number}}
           labels: ${{ steps.meta.outputs.labels }}
 
       # Sign the resulting Docker image digest except on PRs.
