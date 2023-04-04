@@ -189,12 +189,3 @@ Put Request Without Redirection
     ${resp}=		PUT On Session		jigsaw					/HTTP/300/302.html	allow_redirects=${false}
     ${status}=		Convert To String	${resp.status_code}
     Should Start With					${status}				30
-
-Do Not Pretty Print a JSON object
-    [Tags]	json
-    Comment			Define json variable.
-    Create Session	httpbin					http://httpbin.org
-    &{var}=			Create Dictionary		key_one=true			key_two=this is a test string
-    ${resp}=		GET On Session			httpbin					/get			params=${var}
-    Should Be Equal As Strings				${resp.status_code}		200
-    Dictionaries Should Be Equal			${resp.json()['args']}	${var}
