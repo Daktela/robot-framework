@@ -134,7 +134,7 @@ jobs:
         with:
           context: .  
           platforms: linux/amd64,linux/arm64
-          cache-from: $IMAGE_NAME
+          cache-from: ${{ env.IMAGE_NAME }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}, ${{ steps.meta.outputs.tags }}-${{github.run_number}}, latest
           labels: ${{ steps.meta.outputs.labels }}
