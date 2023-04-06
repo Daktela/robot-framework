@@ -92,8 +92,8 @@ RUN pip3 install \
   robotframework-sshlibrary==$SSH_LIBRARY_VERSION \
   axe-selenium-python==$AXE_SELENIUM_LIBRARY_VERSION \
   PyYAML \
-  # Install awscli to be able to upload test reports to AWS S3
   awscli==$AWS_CLI_VERSION
+    # Install awscli to be able to upload test reports to AWS S3
 
 # Gecko drivers
 RUN dnf install -y \
@@ -105,9 +105,7 @@ RUN dnf install -y \
   && mkdir -p /opt/robotframework/drivers/ \
   && mv geckodriver /opt/robotframework/drivers/geckodriver \
   && rm geckodriver-$GECKO_DRIVER_VERSION-linux64.tar.gz \
-
-  && dnf remove -y \
-    wget \
+  && dnf remove -y wget \
   && dnf clean all
 
 # Install the Node dependencies for the Browser library
